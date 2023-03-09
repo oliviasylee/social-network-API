@@ -1,7 +1,8 @@
 const { Schema, model } = require('mongoose');
 const dayjs = require('dayjs')
 
-// Schema Only means no seed data?
+// This will not be a model, but rather will be used as the reaction field's subdocument schema in the Thought model.
+// Schema only?
 const reactionSchema = new Schema(
   {
     //Use Mongoose's ObjectId data type and default value is set to a new ObjectId
