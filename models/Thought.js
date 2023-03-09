@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
-const dayjs = require('dayjs')
+const Reaction = require("./Reaction")
+const dayjs = require('dayjs');
 
 const thoughtSchema = new Schema(
   {
@@ -12,14 +13,13 @@ const thoughtSchema = new Schema(
     createAt: {
       type: Date,
       default: dayjs().format('MMM D, YYYY h:mm A'), //Set default value to the current timestamp
-      // Use a getter method to format the timestamp on query
       // format: MM DD YYYY at 01:38 pm 
     },
-    username: { // might need some kind of foreign key?
+    username: {
       type: String,
       required: true,
     }, 
-    reactions: [reactionSchema],
+    reactions: [Reaction],
     // Array of nested documents created with the reactionSchema
   },
   {
@@ -34,3 +34,8 @@ thoughtSchema.virtual('reactionCount')
   .get(function () {
     return this.reactions.length;
   });
+
+  // Initialize Thought model
+const Thought = model('thougth', thoughtSchema);
+
+module.exports = Thought;
