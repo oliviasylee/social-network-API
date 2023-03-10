@@ -1,3 +1,4 @@
+const router = require('express').Router();
 // /api/thoughts
 
 // GET to get all thoughts
@@ -9,3 +10,5 @@
 // /api/thoughts/:thoughtId/reactions
 // POST to create a reaction stored in a single thought's reactions array field
 // DELETE to pull and remove a reaction by the reaction's reactionId value
+
+module.exports = router;
