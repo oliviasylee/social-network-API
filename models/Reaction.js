@@ -1,5 +1,5 @@
-// Schema only. This will not be a model, but rather will be used as the reaction field's subdocumnet schema in the Thought model
-const { Schema, model } = require('mongoose');
+// Schema only. This will not be a model, but rather will be used as the reaction field's subdocumnet schema in the Thought model -> Types not model
+const { Schema, Types } = require('mongoose');
 const dayjs = require('dayjs')
 
 const reactionSchema = new Schema(

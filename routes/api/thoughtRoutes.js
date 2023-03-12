@@ -1,7 +1,7 @@
 // Routes that include functions needed to write a RESTful API for thoughts and reactions
 const router = require('express').Router();
 const {
-  allThoughts,
+  getThoughts,
   getSingleThought,
   createThought,
   updateThought,
@@ -13,9 +13,9 @@ const {
 
 // /api/thoughts
 // GET to get all thoughts
-// POST to create a new thought (don't forget to push the created thought's _id to the associated user's thoughts array field)
+// POST to create a new thought
 router.route('/')
-  .get(allThoughts)
+  .get(getThoughts)
   .post(createThought);
 
 // GET to get a single thought by its _id

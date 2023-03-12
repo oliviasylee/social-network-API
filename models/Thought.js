@@ -23,7 +23,7 @@ const thoughtSchema = new Schema(
       required: true,
     }, 
     reactions: [Reaction],
-    // Array of nested documents created with the reactionSchema
+    // Array of nested documents created with the reactionSchema - the reaction field's subdocumnet schema in the Thought model
   },
   {
     toJSON: {
