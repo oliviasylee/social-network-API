@@ -1,4 +1,5 @@
 // Routes that include functions needed to write a RESTful API for users and friends
+// Change delete and remove function name
 const router = require('express').Router();
 const {
   getUsers,
@@ -6,8 +7,8 @@ const {
   createUser,
   updateUser,
   deleteUser,
-  createFriend,
-  deleteFriend,
+  addFriend,
+  removeFriend,
 
 } = require('../../controllers/userController');
 
@@ -30,7 +31,7 @@ router.route('/:userId')
 // /api/users/:userId/friends/:friendId
 // POST to add a new friend to a user's friend list & DELETE to remove a friend from a user's friend list
 router.route('/:userId/friends/:friendId')
-  .post(createFriend)
-  .delete(deleteFriend);
+  .post(addFriend)
+  .delete(removeFriend);
 
 module.exports = router;

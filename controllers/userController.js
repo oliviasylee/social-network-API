@@ -28,11 +28,11 @@ module.exports = {
       .then((dbUserdata) => res.json(dbUserdata))
       .catch((err) => res.status(500).json(err));
   },
-  // Update a user
+  // Update a user by its _id
   updateUser(req,res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { ...req.body }, // Spread operator to decompose JSON-formatted data into key-value pairs
+      { $set: req.body },
       { runValidators: true, new: true } // Required to enable data validation and return an updated user
       )
       .then((user) =>
@@ -43,9 +43,9 @@ module.exports = {
           .catch((err) => res.status(500).json(err));
   },
 
-  // createFriend(Post) 
+  // addFriend(Post) 
   // Add a new friend to a user's friend list - Find user and then update friends
-  createFriend(req, res) {
+  addFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
       { $addToSet: { friends: req.body }},
@@ -61,8 +61,8 @@ module.exports = {
         .catch((err) => res.status(500).json(err));
   },
 
-  // deleteFriend(Delete) to remove a friend from a user's friend list
-  deleteFriend(req, res) {
+  // removeFriend(Delete) to remove a friend from a user's friend list
+  removeFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
       { $pull: { friends: req.body }},
@@ -76,7 +76,7 @@ module.exports = {
         .catch((err) => res.status(500).json(err));
   },
 
-  // Delete a user - Remove a user's associated thoughts when deleted.
+  // Delete a user by its _id - Remove a user's associated thoughts when deleted.
   deleteUser(req, res) {
     User.findOneAndRemove({ _id: req.params.userId })
       .then((user) => {
