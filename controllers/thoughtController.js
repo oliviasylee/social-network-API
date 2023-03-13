@@ -18,7 +18,6 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  
   // Create a new thought - don't forget to push the created thought's _id to the associated user's thoughts array field
   createThought(req, res) {
     Thought.create(req.body)
@@ -41,7 +40,6 @@ module.exports = {
         res.status(500).json(err);
       });
   },
-
   // Update a thought by its _id
   updateThought(req, res) {
     Thought.findOneAndUpdate(
@@ -59,9 +57,8 @@ module.exports = {
           res.status(500).json(err);
         });
   },
-
   // Delete a thought by its _id
-  // thought에서 찾아서 삭제, 그리고 유저에서도 찾아서 삭제된 thought을 업데이트해야함 
+  // Find the thought with _id and delete it, and then if the thought is successfully removed, find the user who had the deleted thought and update their thoughts array by removing the deleted thought ID
   deleteThought(req, res) {
     Thought.findOneAndRemove({ _id: req.params.thoughtId })
       .then((thought) => 
@@ -81,12 +78,34 @@ module.exports = {
       .catch((err) => res.status(500).json(err))
   },
 
-  // createReaction - POST to create a reaction stored in a single thought's reactions array field
+  // Add a reaction - POST to create a reaction stored in a single thought's reactions array field
   addReaction(req, res) {
-
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      // Enable addToSet to prevent duplicates
+      { $addToSet: { reactions: req.body }},
+      { runValidators: true, new: true },
+      { new: true }
+    )
+      .then((thought) => 
+        !thought  
+          ? res.status(404).json({ message: 'No thought with this id!' })
+          : res.json(thought)
+        )
+        .catch((err) => res.status(500).json(err));
   },
-  // deleteReaction
+  // Remove a reaction - DELETE to pull and remove a reaction by the reaction's reactionId value
   removeReaction(req, res) {
-
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $pull: { reactionId: req.body }},
+      { runValidators: true, new: true }
+    )
+      .then((thought) => 
+        !thought
+          ? res.status(404).json({ message: 'No thought with this id!' })
+            : res.json(thought)
+        )
+        .catch((err) => res.status(500).json(err));
   },
 };

@@ -60,7 +60,6 @@ module.exports = {
       )
         .catch((err) => res.status(500).json(err));
   },
-
   // removeFriend(Delete) to remove a friend from a user's friend list
   removeFriend(req, res) {
     User.findOneAndUpdate(
@@ -75,7 +74,6 @@ module.exports = {
         )
         .catch((err) => res.status(500).json(err));
   },
-
   // Delete a user by its _id - Remove a user's associated thoughts when deleted.
   deleteUser(req, res) {
     User.findOneAndRemove({ _id: req.params.userId })
