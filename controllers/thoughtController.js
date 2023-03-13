@@ -10,7 +10,7 @@ module.exports = {
   // Get a single thought
   getSingleThought(req, res) {
     Thought.findOne({ _id: req.params.thoughtId })
-      .select("-__v")
+      .select('-__v')
       .then((thought) => 
         !thought
           ? res.status(404).json({ message: 'No thought with that ID' })
@@ -31,7 +31,7 @@ module.exports = {
       .then((user) => 
         !user
           ? res.status(404).json({
-              message: 'Thought create, but found no user with that ID',
+              message: 'Thought created, but found no user with that ID',
           })
           : res.json('Created the thought 🎉')
       )
@@ -84,8 +84,7 @@ module.exports = {
       { _id: req.params.thoughtId },
       // Enable addToSet to prevent duplicates
       { $addToSet: { reactions: req.body }},
-      { runValidators: true, new: true },
-      { new: true }
+      { runValidators: true, new: true }
     )
       .then((thought) => 
         !thought  
@@ -98,7 +97,7 @@ module.exports = {
   removeReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      { $pull: { reactionId: req.body }},
+      { $pull: { reactionId: req.body.reactionId }},
       { runValidators: true, new: true }
     )
       .then((thought) => 

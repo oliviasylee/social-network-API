@@ -11,6 +11,19 @@ const usernames = [
   'bouncykangaroo'
 ];
 
+const emails = [
+  'bajilu1628@outlook.com',
+  'oliviasylee@gmail.com',
+  'jahopo7412@yahoo.com',
+  'laruco5632@gmail.com',
+  'helloworld@gmail.com',
+  'bouncykangaroo@gmail.com',
+  'coolcat@gmail.com',
+  'happypenguin@yahoo.com',
+  'luckyowl@gmail.com',
+  'colorfulparrot@yahoo.com'
+];
+
 const thoughtsBodies = [
   'This is a tweet.',
   'Another tweet.',
@@ -38,6 +51,7 @@ const possibleReactions = [
 ];
 
 const users = [];
+const randomEmails = [];
 
 // Get a random item given an array
 const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
@@ -45,6 +59,15 @@ const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 // Gets a random username
 const getRandomName = () =>
   `${getRandomArrItem(usernames)}`;
+
+// Gets a random email
+const getRandomEmail = () => {
+  let email;
+  do {
+    email = getRandomArrItem(emails);
+  } while (!/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(email));
+  return email;
+};
 
 // Function to generate random thoughts that we can add to the database. Includes reactions.
 const getRandomThoughts = (int) => {
@@ -73,4 +96,4 @@ const getRandomReactions = (int) => {
   return results;
 };
 
-module.exports = { getRandomName, getRandomThoughts, getRandomReactions };
+module.exports = { getRandomName, getRandomThoughts, getRandomReactions, getRandomEmail };

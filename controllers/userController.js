@@ -13,7 +13,7 @@ module.exports = {
       // Exclude the __v field from the results of User.findOne()
       .select("-__v")
       // populated thought and friend data
-      .populate('thought')
+      .populate('thoughts')
       .populate('friends')
       .then((user) => 
         !user
@@ -25,6 +25,7 @@ module.exports = {
   // Create a new user
   createUser(req, res) {
     User.create(req.body)
+       // The returned user data came from the database
       .then((dbUserdata) => res.json(dbUserdata))
       .catch((err) => res.status(500).json(err));
   },
@@ -42,13 +43,24 @@ module.exports = {
           )
           .catch((err) => res.status(500).json(err));
   },
-
+  // Delete a user by its _id - Remove a user's associated thoughts when deleted.
+  deleteUser(req, res) {
+    User.findOneAndRemove({ _id: req.params.userId })
+      .then((user) => {
+        if (!user) {
+          return res.status(404).json({ message: 'No such user exists' });
+        }
+        return Thought.deleteMany({ username: req.params.userId });
+      })
+      .then(() => res.json({ message: 'User and associated thoughts deleted' }))
+      .catch((err) => res.status(500).json(err));
+  },
   // addFriend(Post) 
   // Add a new friend to a user's friend list - Find user and then update friends
   addFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $addToSet: { friends: req.body }},
+      { $addToSet: { friends: req.body.friendId }},
       // If you add a friend who is already in the list again, it won't be duplicated.
       { runValidators: true, new: true },
       { new: true }
@@ -64,7 +76,7 @@ module.exports = {
   removeFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $pull: { friends: req.body }},
+      { $pull: { friends: req.body.friendId }},
       { runValidators: true, new: true }
     )
       .then((user) => 
@@ -74,16 +86,5 @@ module.exports = {
         )
         .catch((err) => res.status(500).json(err));
   },
-  // Delete a user by its _id - Remove a user's associated thoughts when deleted.
-  deleteUser(req, res) {
-    User.findOneAndRemove({ _id: req.params.userId })
-      .then((user) => {
-        if (!user) {
-          return res.status(404).json({ message: 'No such user exists' });
-        }
-        return Thought.deleteMany({ username: req.params.userId });
-      })
-      .then(() => res.json({ message: 'User and associated thoughts deleted' }))
-      .catch((err) => res.status(500).json(err));
-  },
+  
 };
