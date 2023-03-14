@@ -2,9 +2,9 @@
   "name": "social-network-api",
   "version": "1.0.0",
   "description": "API for social network that uses a NoSQL database",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node index",
+    "start": "node server.js",
     "seed": "node utils/seed",
     "heroku-postbuild": "node utils/seed.js"
   },
