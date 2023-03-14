@@ -5,7 +5,7 @@ This is an API developed for a social network web application that allows users 
 ## Table of Contents
 - [Installation](#Installation)
 - [Usage](#Usage)
-- [Application Preview](#Application-preview)
+- [Preview](#Application-preview)
 - [Video Walkthrough](#Video-walkthrough)
 - [Technologies](#Technologies)
 - [Questions](#Questions)
@@ -16,8 +16,18 @@ To use the API for the social network web application on your local machine, dow
 
 ## Preview
 
+| Find all users | Find by user id|
+|-----------|-----------|
+| ![findallusers](/assets/Insomnia01.png)| ![findasingleuser](/assets/Insomnia02.png)|
+
+| Get all thoughts | Get thought by id |
+|-----------|-----------|
+| ![Getallthoughts](/assets/Insomnia03.png)| ![getasinglethought](/assets/Insomnia04.png)|
+
 ## Video Walkthrough
-Here is a full movie showing how it works. [Click here]() <br>
+Here is a full movie showing how it works. [Click here](https://drive.google.com/file/d/1fRHILK8vAIVr8a3bTQoVtAMF48arPijK/view) <br>
+
+[![preview](/assets/Insomnia01.png)](https://drive.google.com/file/d/1fRHILK8vAIVr8a3bTQoVtAMF48arPijK/view)
 
 ## Technologies
 - JavaScript
