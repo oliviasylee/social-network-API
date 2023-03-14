@@ -14,9 +14,9 @@ const thoughtSchema = new Schema(
       type: Date,
        //Set default value to the current timestamp
       // format: MM DD YYYY at 01:38 pm 
-      default: () => dayjs().format('MMM D[,] YYYY [at] h:mm A'),
+      default: Date.now,
       // Use a getter method to format the timestamp on query
-      get: timestamp => dayjs(timestamp).format('MMM Mo[,] YYYY [at] hh:mm a'),
+      get: timestamp => dayjs(timestamp).format('MMM D[,] YYYY [at] h:mm A'),
     },
     username: {
       type: String,
@@ -28,6 +28,7 @@ const thoughtSchema = new Schema(
   {
     toJSON: {
       virtuals: true,
+      getters: true,
     },
     id: false,
   }
@@ -39,6 +40,6 @@ thoughtSchema.virtual('reactionCount')
   });
 
   // Initialize Thought model
-const Thought = model('thought', thoughtSchema);
+const Thought = model('Thought', thoughtSchema);
 
 module.exports = Thought;

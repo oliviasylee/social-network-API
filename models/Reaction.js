@@ -1,4 +1,4 @@
-// Schema only. This will not be a model, but rather will be used as the reaction field's subdocumnet schema in the Thought model -> Types not model
+// Schema only. This will not be a model, but rather will be used as the reaction field's subdocumnet schema in the Thought model
 const { Schema, Types } = require('mongoose');
 const dayjs = require('dayjs')
 
@@ -20,11 +20,11 @@ const reactionSchema = new Schema(
     },
     createdAt: {
       type: Date,
-       // Set default value to the current timestamp
+      // Set default value to the current timestamp
       // format: MM DD YYYY at 01:38 pm 
-      default: () => dayjs().format('MMM D[,] YYYY [at] h:mm A'),
+      default: Date.now,
       // Use a getter method to format the timestamp on query
-      get: timestamp => dayjs(timestamp).format('MMM Mo[,] YYYY [at] hh:mm a'),
+      get: timestamp => dayjs(timestamp).format('MMM D[,] YYYY [at] h:mm A'),
     },
   },
   {

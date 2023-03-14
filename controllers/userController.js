@@ -11,12 +11,12 @@ module.exports = {
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
       // Exclude the __v field from the results of User.findOne()
-      .select("-__v")
       // populated thought and friend data
       .populate('thoughts')
       .populate('friends')
+      .select('-__v')
       .then((user) => 
-        !user
+        !user 
           ? res.status(404).json({ message: 'No user with that ID'})
           : res.json(user)
       )
@@ -60,10 +60,9 @@ module.exports = {
   addFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $addToSet: { friends: req.body.friendId }},
+      { $addToSet: { friends: req.params.friendId }},
       // If you add a friend who is already in the list again, it won't be duplicated.
-      { runValidators: true, new: true },
-      { new: true }
+      { runValidators: true, new: true }
     )
         .then((user) =>
         !user
@@ -76,7 +75,7 @@ module.exports = {
   removeFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $pull: { friends: req.body.friendId }},
+      { $pull: { friends: req.params.friendId }},
       { runValidators: true, new: true }
     )
       .then((user) => 
