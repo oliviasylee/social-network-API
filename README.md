@@ -12,7 +12,7 @@ This is an API developed for a social network web application that allows users 
 ## Installation
 To use the API for the social network web application on your local machine, download or clone the repository. After navigating to the root directory, run the command "npm i" to install the necessary dependencies. To start your application, run 'npm start'.
 ## Usage
-Here is a full movie showing how it works. [Click here](https://drive.google.com/file/d/1fRHILK8vAIVr8a3bTQoVtAMF48arPijK/view) <br>
+Here is a full movie showing how it works. [Click here](https://drive.google.com/file/d/1gtJRLju7falAeMsl5w38dW-cYPdHvlBE/view) <br>
 
 [![preview](/assets/Insomnia01.png)](https://drive.google.com/file/d/1fRHILK8vAIVr8a3bTQoVtAMF48arPijK/view)
 
